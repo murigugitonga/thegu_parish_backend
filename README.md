@@ -46,7 +46,7 @@ The entire frontend ecosystem communicates with the same Laravel API
 - **Super Admin**
     - Full System access
     - Manages users, roles and permissions
-- ** Minor Admins**
+- **Minor Admins**
     - Restricted access based on assigned permissions
     - Access via lightweight PWAs
 
@@ -65,3 +65,39 @@ Roles,by definition in this usecase are collections of permissions and can be mo
 - Tailwindcss **v4**
 - CSS-first configuration
 - Vite-powered asset-building.
+
+---
+## Local Development Setup
+
+### Requirements
+- PHP 8.2+
+- Composer 
+- Node.js 20+
+- Apache & MySQL (ideally use Xampp)
+
+### Backend Setup
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+
+```
+Create a MySQL database.
+update the environment file with the database credentials.
+
+### Assets Bundling
+
+Laravel comes wih vite bundled as a default. You will need node.js (ideally v20+ to run this project).
+
+```bash
+npm install
+npm run dev
+```
+
+### Running the server
+```bash
+php artisan serve
+
+```
+
+That is it. Should be good to go.
