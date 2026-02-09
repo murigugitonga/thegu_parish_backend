@@ -4,7 +4,7 @@ This is a secure role-based parish management system designed to support adminis
 workflows such as member management, financial contributions & role based operations.
 
 This system follows a decoupled architecture with a dedicated **react+tailwind frontend ecosystem**
-and features a super-admin dashboard with task-focued PWA's for minor administrators
+and features a super-admin dashboard with task-focued PWA's for minor administrators.
 
 ---
 
@@ -38,7 +38,7 @@ centralized authorization and auditability.
 - **Financial Funds Management** (React PWA)
 - Shared frontend utilities (auth, API client, permissions)
 
-The entire frontend ecosystem communicates with the same Laravel API
+The entire frontend ecosystem communicates with the same Laravel API.
 
 ## Authentication & Authorization Model
 
@@ -55,11 +55,11 @@ The entire frontend ecosystem communicates with the same Laravel API
 
 ## Roles & Permissions (RBAC)
 
-The system employs a granular permission model
+The system employs a granular permission model:
 - `members.CRUD`
 - `resources.CRUD`
 
-Roles,by definition in this usecase are collections of permissions and can be modified at runtime by the Super Admin.
+Roles, by definition in the laravel usecase, are collections of permissions and can be modified at runtime by the Super admin.
 
 ## Styling
 - Tailwindcss **v4**
@@ -73,9 +73,12 @@ Roles,by definition in this usecase are collections of permissions and can be mo
 - PHP 8.2+
 - Composer 
 - Node.js 20+
-- Apache & MySQL (ideally use Xampp)
+- Apache & MySQL (ideally use Xampp for windows OS setup)
 
 ### Backend Setup
+
+To scaffold and run this project:
+
 ```bash
 composer install
 cp .env.example .env
