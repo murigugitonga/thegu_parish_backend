@@ -26,52 +26,78 @@ class RbacSeeder extends Seeder
             'members.view',
             'members.update',
 
+
             //prayer sessions
             'prayers.create',
             'prayers.view',
             'prayers.update',
 
             //finance
-            'finance.create',
-            'finance.view',
-            'finance.update',
+            'finances.create',
+            'finances.view',
+            'finances.update',
 
-            //System /RBAC
+            //System /RBAC /SuperAdmin
             'users.manage',
             'roles.manage'
         ];
-        foreach ($permissions as $permission) {
-            Permission::firstOrCreate(['name' => $permission]);
+        foreach ($permissions as $perm) {
+            Permission::firstOrCreate(['name' => $perm, 'guard_name' =>'sanctum']);
         }
 
-        // Defining the roles
-        $superAdmin = Role::firstOrCreate(['name'=>'super-admin']);
-        $groupLeader = Role::firstOrCreate(['name'=>'pg-leader']);
-        $secretary = Role::firstOrCreate(['name' => 'finance-admin']);
+        // Roles with guard
+        $roles = [
+            'super-admin' => $permissions, // explicit access
+            'pg-leader' => ['members.add','members.update', 'prayers.add', 'prayers.update'],
+            'finance-admin'=>['finances.update'],
+        ];
 
-        // Assigning permissions to roles 
-        // Total access to super-admin
-        $superAdmin->syncPermissions(Permission::all());
+        foreach ($roles as $roleName => $rolePerms) {
+            $role = Role::firstOrCreate(
+                [
+                    'name' => $roleName,
+                    'guard_name' => 'sanctum',
+                ]);
+        }
 
-        // Prayer Group Leader
-        $groupLeader->syncPermissions([
-            'members.create',
-            'members.view',
-            'members.update',
+        // syncing the correct permissions
+        $role->syncPermissions($rolePerms);
 
-            'prayers.create',
-            'prayers.view',
-            'prayers.update',
-        ]);
+        // cache clearing
+        \Artisan::call('permission:cache-reset');
 
-        // Secretary
-        $secretary->syncPermissions([
-            'finance.create',
-            'finance.view',
-            'finance.update',
+        // // Defining the roles
+        // $superAdmin = Role::firstOrCreate(['name'=>'super-admin', 'guard_name' =>'sanctum']);
+        // $groupLeader = Role::firstOrCreate(['name'=>'pg-leader', 'guard_name' =>'sanctum']);
+        // $secretary = Role::firstOrCreate(['name' => 'finance-admin', 'guard_name' =>'sanctum']);
 
-            'members.view',
-            'members.update',
-        ]);
+        // // Defining permissions
+        // Permission::firstOrCreate(['name'=>'users.manage', 'guard_name'=>'sanctum']);
+        // Permission::firstOrCreate(['name'=>'members.add', 'guard_name'=>'sanctum']);
+
+        // // Syncing permissions
+        // // Total access to super-admin
+        // $superAdmin->syncPermissions(Permission::all());
+
+        // // Prayer Group Leader
+        // $groupLeader->syncPermissions([
+        //     'members.create',
+        //     'members.view',
+        //     'members.update',
+
+        //     'prayers.create',
+        //     'prayers.view',
+        //     'prayers.update',
+        // ]);
+
+        // // Secretary
+        // $secretary->syncPermissions([
+        //     'finance.create',
+        //     'finance.view',
+        //     'finance.update',
+
+        //     'members.view',
+        //     'members.update',
+        // ]);
     }
 }

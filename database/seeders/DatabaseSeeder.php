@@ -22,9 +22,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+
         //Registering roles
         $this->call([
             RbacSeeder::class,
+            TestUserSeeder::class,
         ]);
     }
 }

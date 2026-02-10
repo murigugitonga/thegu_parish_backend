@@ -4,14 +4,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-100">
-    <h1 class="text-3xl text-center text-purple-500 font-bold uppercase">Thegu Catholic Parish Management System</h1>
-    <div class="bg-slate-950 min-h-screen flex items-center justify-center">
-       <div class="border border-gray-200 bg-white p-2 rounded-xl w-72 h-40">
-            <h2 class="font-semibold">This is the backend system for the Thegu Catholic Parish</h2>
-            <div>
-                <p></p>
-            </div>
-       </div> 
-    </div>
+    <main class="min-h-screen flex flex-col items-start justify-center bg-slate-100">
+        <section class="border border-slate-200 rounded-xl p-2 max-w-72">
+            <h3>Thegu catholic parish management system.</h3>
+        </section>
+        <section>
+            <h3>What this project entails</h3>
+        </section>
+        <section>
+            <h3>Murigu Gitonga</h3>
+        </section>
+    </main>
+    
 </body>
 </html>
